@@ -6,12 +6,12 @@ package com.pblgllgs.sb3mcsvcjob.job;
  *
  */
 
+import com.pblgllgs.sb3mcsvcjob.dto.JobDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/jobs")
@@ -24,7 +24,7 @@ public class JobController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Job>> findAllJobs() {
+    public ResponseEntity<List<JobDTO>> findAllJobs() {
         return new ResponseEntity<>(jobService.findAllJobs(), HttpStatus.OK);
     }
 
@@ -35,10 +35,10 @@ public class JobController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Job> findById(@PathVariable Long id) {
-        Optional<Job> job = jobService.findJobById(id);
-        if (job.isPresent()) {
-            return new ResponseEntity<>(job.get(), HttpStatus.ACCEPTED);
+    public ResponseEntity<JobDTO> findById(@PathVariable Long id) {
+        JobDTO jobWithCompanyDTO = jobService.findJobById(id);
+        if (jobWithCompanyDTO != null) {
+            return new ResponseEntity<>(jobWithCompanyDTO, HttpStatus.ACCEPTED);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

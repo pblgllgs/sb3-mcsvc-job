@@ -6,14 +6,15 @@ package com.pblgllgs.sb3mcsvcjob.job;
  *
  */
 
+import com.pblgllgs.sb3mcsvcjob.dto.JobDTO;
+
 import java.util.List;
-import java.util.Optional;
 
 public interface JobService {
 
-    List<Job> findAllJobs();
+    List<JobDTO> findAllJobs();
     void createJob(Job job);
-    Optional<Job> findJobById(Long id);
+    JobDTO findJobById(Long id);
     boolean deleteJobById(Long id);
     boolean updateJob(Long id, Job job);
 }
