@@ -9,7 +9,7 @@ package com.pblgllgs.sb3mcsvcjob.mapper;
 import com.pblgllgs.sb3mcsvcjob.dto.JobDTO;
 import com.pblgllgs.sb3mcsvcjob.external.Company;
 import com.pblgllgs.sb3mcsvcjob.external.Review;
-import com.pblgllgs.sb3mcsvcjob.job.Job;
+import com.pblgllgs.sb3mcsvcjob.model.Job;
 
 import java.util.List;
 

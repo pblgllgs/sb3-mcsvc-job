@@ -1,4 +1,4 @@
-package com.pblgllgs.sb3mcsvcjob.job;
+package com.pblgllgs.sb3mcsvcjob.service;
 /*
  *
  * @author pblgl
@@ -7,6 +7,7 @@ package com.pblgllgs.sb3mcsvcjob.job;
  */
 
 import com.pblgllgs.sb3mcsvcjob.dto.JobDTO;
+import com.pblgllgs.sb3mcsvcjob.model.Job;
 
 import java.util.List;
 

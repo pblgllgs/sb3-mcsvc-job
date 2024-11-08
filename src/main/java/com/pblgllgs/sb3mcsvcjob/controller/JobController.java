@@ -1,4 +1,4 @@
-package com.pblgllgs.sb3mcsvcjob.job;
+package com.pblgllgs.sb3mcsvcjob.controller;
 /*
  *
  * @author pblgl
@@ -7,6 +7,8 @@ package com.pblgllgs.sb3mcsvcjob.job;
  */
 
 import com.pblgllgs.sb3mcsvcjob.dto.JobDTO;
+import com.pblgllgs.sb3mcsvcjob.model.Job;
+import com.pblgllgs.sb3mcsvcjob.service.JobService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

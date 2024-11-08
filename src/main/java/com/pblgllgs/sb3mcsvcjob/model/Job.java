@@ -1,4 +1,4 @@
-package com.pblgllgs.sb3mcsvcjob.job;
+package com.pblgllgs.sb3mcsvcjob.model;
 /*
  *
  * @author pblgl
