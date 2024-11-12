@@ -15,11 +15,15 @@ import com.pblgllgs.sb3mcsvcjob.mapper.JobMapper;
 import com.pblgllgs.sb3mcsvcjob.model.Job;
 import com.pblgllgs.sb3mcsvcjob.repository.JobRepository;
 import com.pblgllgs.sb3mcsvcjob.service.JobService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,6 +38,8 @@ public class JobServiceImpl implements JobService {
     private final CompanyClient companyClient;
     private final ReviewClient reviewClient;
 
+    int attempts = 0;
+
     public JobServiceImpl(JobRepository jobRepository, CompanyClient companyClient, ReviewClient reviewClient) {
         this.jobRepository = jobRepository;
         this.companyClient = companyClient;
@@ -41,7 +47,14 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
+//    @CircuitBreaker(
+//            name="companyBreaker",
+//            fallbackMethod = "companyBreakerFallback"
+//    )
+//    @Retry(name = "companyBreaker", fallbackMethod = "companyBreakerFallback")
+    @RateLimiter(name = "companyBreaker", fallbackMethod = "companyBreakerFallback")
     public List<JobDTO> findAllJobs() {
+        System.out.println("attempt: " + ++attempts);
         List<Job> allJobs = jobRepository.findAll();
         return allJobs.stream().map(this::convertToDto).collect(Collectors.toList());
     }
@@ -91,5 +104,11 @@ public class JobServiceImpl implements JobService {
             return true;
         }
         return false;
+    }
+
+    public List<String> companyBreakerFallback(Exception e) {
+        List<String> list = new ArrayList<>();
+        list.add("Dummy");
+        return list;
     }
 }
