@@ -52,7 +52,7 @@ public class JobServiceImpl implements JobService {
 //            fallbackMethod = "companyBreakerFallback"
 //    )
 //    @Retry(name = "companyBreaker", fallbackMethod = "companyBreakerFallback")
-    @RateLimiter(name = "companyBreaker", fallbackMethod = "companyBreakerFallback")
+//    @RateLimiter(name = "companyBreaker", fallbackMethod = "companyBreakerFallback")
     public List<JobDTO> findAllJobs() {
         System.out.println("attempt: " + ++attempts);
         List<Job> allJobs = jobRepository.findAll();
