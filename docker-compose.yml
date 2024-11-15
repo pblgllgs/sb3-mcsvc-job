@@ -1,21 +1,24 @@
 services:
-  postgres_db:
-    container_name: postgres_db_job
-    image: postgres:14-alpine3.18
+  mysql_job:
+    container_name: mysql_db_job
+    image: mysql:8.0.32
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: job_db
+      MYSQL_ROOT_USERNAME: root
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: db_job
     ports:
-      - "5433:5432"
+      - "3307:3306"
+    expose:
+      - "3307"
     volumes:
-      - volume_postgres_db_data:/var/lib/postgresql/data
+      - volume_mysql_db_job:/var/lib/mysql
     healthcheck:
-      test: "pg_isready -U postgres | grep 'accepting connections' || exit 1"
+      test: "/usr/bin/mysql --user=root --password=password --execute \"SHOW DATABASES;\""
       interval: 2s
       timeout: 20s
       retries: 10
 volumes:
-  volume_postgres_db_data:
+  volume_mysql_db_job:
     external: false
